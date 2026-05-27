@@ -212,7 +212,7 @@ const observeUnreadHandlers = {
 const initializeEmailMonitoring = () => {
   // Native Electron notifications don't require permission requests
   // The main process handles notification permissions
-
+  console.log("init monitor");
   const startedHandlers = [];
   const failedHandlers = [];
 
@@ -264,5 +264,5 @@ const debounce = (() => {
     timers[id] = setTimeout(callback, wait);
   };
 })();
-
+console.log("init monitor");
 initializeEmailMonitoring();

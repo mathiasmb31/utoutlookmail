@@ -1,22 +1,28 @@
-const { app, BrowserWindow, shell, ipcMain, Menu } = require("electron");
-const { spawn } = require("child_process");
-const settings = require("../settings");
-const getClientFile = require("./client-injector");
-const path = require("path");
+import { app, BrowserWindow, shell, ipcMain, Menu } from 'electron';
+import  { spawn }  from 'child_process';
+import getClientFile  from './client-injector.mjs';
+import path from 'path';
+import { settings } from "../settings.mjs";
+import { fileURLToPath } from 'url';
+import fs from 'node:fs';
 
 let mainMailServiceUrl;
 let deeplinkUrls;
 let safelinksUrls;
 let mailServicesUrls;
 let showWindowFrame;
-
+const __filenameNew = fileURLToPath(import.meta.url)
+    
+const __dirnameNew = path.dirname(__filenameNew)
 //Setted by cmdLine to initial minimization
 const initialMinimization = {
   domReady: false,
 };
 
-class MailWindowController {
-  constructor() {
+export class MailWindowController {
+  constructor() {    
+   
+
     this.init();
     // Check both command-line flag and settings for initial minimization
     const hasMinimizedFlag = global.cmdLine.indexOf("--minimized") !== -1;
@@ -97,13 +103,12 @@ class MailWindowController {
       height: 900,
       frame: showWindowFrame,
       autoHideMenuBar: true,
-
       show: false,
       title: "Prospect Mail",
-      icon: path.join(__dirname, "../../assets/outlook_linux_black.png"),
+      icon: path.join(__dirnameNew, "../../assets/outlook_linux_black.png"),
       webPreferences: {
         contextIsolation: true,
-        preload: path.join(__dirname, "preload.js"),
+        preload: path.join(__dirnameNew, "preload.js"),
       },
     });
 
@@ -117,20 +122,18 @@ class MailWindowController {
     const platform = process.platform;
     let userAgentOS;
     let customUserAgent;
-
+    const content = 'initialise!';
+    fs.writeFile('/home/phablet/.config/prospectmail.mathias/init', content, err => {
+      if (err) {
+        console.error(err);
+      } else {
+        // file written successfully
+      }
+    });
     // Set OS-specific part of the user agent
-    switch (platform) {
-      case "darwin":
-        userAgentOS = "Macintosh; Intel Mac OS X 10_15_7";
-        break;
-      case "linux":
-        userAgentOS = "X11; Linux x86_64";
-        break;
-      case "win32":
-      default:
-        userAgentOS = "Windows NT 10.0; Win64; x64";
-        break;
-    }
+    
+    userAgentOS = "X11; Linux x86_64";
+       
 
     customUserAgent =
       "Mozilla/5.0 " +
@@ -222,12 +225,23 @@ class MailWindowController {
 
     // Show window handler
     ipcMain.on("show", (event) => {
+       console.log("SHOWWWWWWWWWWWWW");
       this.show();
     });
 
     // Native notification handler
     ipcMain.on("show-notification", (_event, { title, body, icon }) => {
+      console.log("NOTIFFFFFFFFFFFFFFFFFFFFFFFF");
       const { Notification, nativeImage } = require("electron");
+
+const content = 'notif!';
+fs.writeFile('/home/phablet/.config/prospectmail.mathias/notif', content, err => {
+  if (err) {
+    console.error(err);
+  } else {
+    // file written successfully
+  }
+});
 
       // Check if notifications are supported
       if (!Notification.isSupported()) {
@@ -244,7 +258,7 @@ class MailWindowController {
       };
 
       // Handle icon - use nativeImage if it's a data URL, otherwise use file path
-      const iconPath = icon || path.join(__dirname, "../../assets/outlook_linux_black.png");
+      const iconPath = icon || path.join(__dirnameNew, "../../assets/outlook_linux_black.png");
       if (iconPath.startsWith("data:")) {
         notificationConfig.icon = nativeImage.createFromDataURL(iconPath);
       } else {
@@ -263,11 +277,13 @@ class MailWindowController {
 
     // insert styles
     this.win.webContents.on("dom-ready", () => {
+      console.log("frame")
       this.win.webContents.insertCSS(getClientFile("main.css"));
       if (!showWindowFrame) {
+        console.log("no frame");
         this.win.webContents.insertCSS(getClientFile("no-frame.css"));
       }
-
+      console.log("add observer")
       this.addUnreadNumberObserver();
       if (!initialMinimization.domReady) {
         this.win.show();
@@ -348,6 +364,7 @@ class MailWindowController {
   }
 
   addUnreadNumberObserver() {
+    console.log("read unread")
     this.win.webContents.executeJavaScript(
       getClientFile("unread-number-observer.js")
     );
@@ -372,7 +389,7 @@ class MailWindowController {
 
   show() {
     initialMinimization.domReady = false;
-
+    console.log("showwwwwwwwwwwwwwwwwwwwwwwwww");
     // Restore if minimized, otherwise just show
     if (this.win.isMinimized()) {
       this.win.restore();
@@ -385,4 +402,3 @@ class MailWindowController {
   }
 }
 
-module.exports = MailWindowController;

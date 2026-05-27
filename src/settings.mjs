@@ -1,10 +1,12 @@
-const Store = require('electron-store');
+import __Store from 'electron-store'
+
+export const Store = __Store.default || __Store
 
 // Note: This module is loaded after app.setPath() in main.js has set the userData path
 // to 'prospect-mail', ensuring settings stay in the same directory location.
 
 // Centralized settings store with defaults
-const settings = new Store({
+export const settings = new Store({
   name: 'settings',
   clearInvalidConfig: true,  // Auto-handle corrupted configs
   defaults: {
@@ -32,5 +34,3 @@ const settings = new Store({
     customBrowserPath: undefined
   }
 });
-
-module.exports = settings;

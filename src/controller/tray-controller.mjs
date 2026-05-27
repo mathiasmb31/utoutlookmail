@@ -1,4 +1,4 @@
-const {
+import  {
   app,
   dialog,
   Tray,
@@ -6,15 +6,19 @@ const {
   Menu,
   ipcMain,
   shell,
-} = require("electron");
-const settings = require("../settings");
-const path = require("path");
-const fs = require("fs");
-const { openAboutWindow } = require("./about-window");
+} from 'electron';
+import { settings } from "../settings.mjs";
+import { fileURLToPath } from 'url';
+import path from 'node:path';
+
+import { promises as fs } from 'fs';
+import { openAboutWindow } from "./about-window.js";
 
 const macOS = process.platform === "darwin";
-
-class TrayController {
+const __filenameNew = fileURLToPath(import.meta.url)
+    
+const __dirnameNew = path.dirname(__filenameNew)
+export class TrayController {
   constructor(mailController) {
     this.mailController = mailController;
     this.init();
@@ -102,7 +106,7 @@ class TrayController {
         : "../../assets/outlook_macOS.png";
 
       const trayIcon = nativeImage.createFromPath(
-        path.join(__dirname, iconPath)
+        path.join(__dirnameNew, iconPath)
       );
       trayIcon.setTemplateImage(true);
       return trayIcon;
@@ -113,7 +117,7 @@ class TrayController {
       ? "../../assets/outlook_linux_unread.png"
       : "../../assets/outlook_linux_black.png";
 
-    return nativeImage.createFromPath(path.join(__dirname, iconPath));
+    return nativeImage.createFromPath(path.join(__dirnameNew, iconPath));
   }
 
   fireClickEvent() {
@@ -236,4 +240,4 @@ class TrayController {
   }
 }
 
-module.exports = TrayController;
+

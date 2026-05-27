@@ -1,10 +1,19 @@
-const path = require("path");
-const fs = require("fs");
+import { resolve, sep } from "path";
+import { existsSync, statSync, readFileSync } from "fs";
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+function getDirname(importMetaUrl) {
+  const filename = fileURLToPath(importMetaUrl);
+  return dirname(filename);
+}
+const __dirname = getDirname(import.meta.url);
 
 const cache = {};
-const publicDir = path.resolve(__dirname, "../../public");
+const publicDir = resolve(__dirname, "../../public");
 
-module.exports = (relpath) => {
+export default (relpath) => {
   // Input validation
   if (typeof relpath !== 'string' || !relpath) {
     throw new TypeError('relpath must be a non-empty string');
@@ -22,22 +31,22 @@ module.exports = (relpath) => {
   }
 
   // Resolve the full path and validate it's within public directory
-  const fullpath = path.resolve(publicDir, relpath);
+  const fullpath = resolve(publicDir, relpath);
 
   // Security: Ensure resolved path is within public directory
-  if (!fullpath.startsWith(publicDir + path.sep) && fullpath !== publicDir) {
+  if (!fullpath.startsWith(publicDir + sep) && fullpath !== publicDir) {
     throw new Error(
       `Security: ${relpath} attempts to access files outside public directory`
     );
   }
 
-  if (!fs.existsSync(fullpath) || !fs.statSync(fullpath).isFile()) {
+  if (!existsSync(fullpath) || !statSync(fullpath).isFile()) {
     throw new Error(
       `${relpath} is not a valid client file. It must exist in ${fullpath}`
     );
   }
 
   console.log(`Prepare %o to be injected.`, relpath);
-  cache[relpath] = fs.readFileSync(fullpath, 'utf-8');
+  cache[relpath] = readFileSync(fullpath, 'utf-8');
   return cache[relpath];
 };

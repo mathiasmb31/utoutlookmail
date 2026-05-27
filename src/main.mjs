@@ -1,7 +1,10 @@
-const { app } = require("electron");
-const path = require("path");
-const MailWindowController = require("./controller/mail-window-controller");
-const TrayController = require("./controller/tray-controller");
+import { app } from 'electron';
+import path from 'node:path';
+import { settings } from "./settings.mjs"
+import { MailWindowController } from './controller/mail-window-controller.mjs';
+import { TrayController } from './controller/tray-controller.mjs';
+import fs from 'node:fs';
+
 
 // Set the app name to use kebab-case for config directory (avoids spaces in path)
 // This must be set before app is ready
@@ -9,10 +12,16 @@ app.setPath("userData", path.join(app.getPath("appData"), "prospect-mail"));
 
 // Set desktop name for proper notification handling on Linux
 // This prevents the system from showing a separate "app is ready" notification
-if (process.platform === "linux") {
   app.setDesktopName("Prospect Mail");
-}
-
+console.log("je suis laaaaa");
+  const content = 'Some content!';
+fs.writeFile('/home/phablet/.config/prospectmail.mathias/test', content, err => {
+  if (err) {
+    console.error(err);
+  } else {
+    // file written successfully
+  }
+});
 //Store commandline for global purpose
 global.cmdLine = process.argv;
 

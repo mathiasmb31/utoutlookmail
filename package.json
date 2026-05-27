@@ -1,8 +1,9 @@
 {
   "name": "prospect-mail",
   "productName": "Prospect Mail",
-  "version": "1.2.1",
-  "main": "src/main.js",
+  "version": "2.0.0",
+  "type:": "module",
+  "main": "src/main.mjs",
   "description": "Unofficial desktop mail client for Microsoft Outlook",
   "homepage": "https://github.com/julian-alarcon/prospect-mail",
   "keywords": [
@@ -26,7 +27,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": "^22.0.0"
+    "node": "^26.1.0"
   },
   "scripts": {
     "start": "electron . --ozone-platform=x11",
@@ -67,11 +68,11 @@
     "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
-    "electron-store": "^8.2.0"
+    "electron-store": "^11.0.2"
   },
   "devDependencies": {
-    "electron": "^39.2.7",
-    "electron-builder": "^26.4.0"
+    "electron": "^42.0.1",
+    "electron-builder": "^26.8.2"
   },
   "optionalDependencies": {
     "dmg-license": "^1.0.11"
