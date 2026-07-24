@@ -27,7 +27,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": "^26.1.0"
+    "node": "^26.5.0"
   },
   "scripts": {
     "start": "electron . --ozone-platform=x11",
@@ -71,8 +71,8 @@
     "electron-store": "^11.0.2"
   },
   "devDependencies": {
-    "electron": "^42.0.1",
-    "electron-builder": "^26.8.2"
+    "electron": "^43.2.0",
+    "electron-builder": "^26.15.3"
   },
   "optionalDependencies": {
     "dmg-license": "^1.0.11"
