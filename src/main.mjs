@@ -5,6 +5,15 @@ import { MailWindowController } from './controller/mail-window-controller.mjs';
 import { TrayController } from './controller/tray-controller.mjs';
 import fs from 'node:fs';
 
+import { EventEmitter } from 'events';
+
+const originalEmit = EventEmitter.prototype.emit;
+EventEmitter.prototype.emit = function (eventName, ...args) {
+  console.log(`[EVENT] ${String(eventName)}`, args);
+  return originalEmit.call(this, eventName, ...args);
+};
+
+
 window.addEventListener('*', (event) => {
   console.log('[DOM EVENT]', event.type, event.target);
 }, { capture: true });
