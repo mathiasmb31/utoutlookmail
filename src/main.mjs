@@ -55,6 +55,7 @@ class ProspectMail {
     });
     // Quit when all windows are closed.
     app.on("window-all-closed", () => {
+		console.log("no more windows");
       // On macOS it is common for applications and their menu bar
       // to stay active until the user quits explicitly with Cmd + Q
         app.exit(0)
