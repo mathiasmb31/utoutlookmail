@@ -4,6 +4,7 @@ import { settings } from "./settings.mjs"
 import { MailWindowController } from './controller/mail-window-controller.mjs';
 import { TrayController } from './controller/tray-controller.mjs';
 import fs from 'node:fs';
+import  { BrowserWindow }  from 'electron';
 
 import { EventEmitter } from 'events';
 
