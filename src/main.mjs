@@ -5,6 +5,9 @@ import { MailWindowController } from './controller/mail-window-controller.mjs';
 import { TrayController } from './controller/tray-controller.mjs';
 import fs from 'node:fs';
 
+// in-process-gpu fixes the steam overlay. Experimental canvas features are needed until Chrome 66 for rendering in
+// offscreen contexts (multi-threading).
+app.commandLine.appendSwitch("in-process-gpu");
 
 // Set the app name to use kebab-case for config directory (avoids spaces in path)
 // This must be set before app is ready
@@ -57,7 +60,7 @@ class ProspectMail {
     app.on("window-all-closed", () => {
       // On macOS it is common for applications and their menu bar
       // to stay active until the user quits explicitly with Cmd + Q
-      if (process.platform !== "darwin" && !this.mailController) {
+      if ( !this.mailController) {
         app.quit();
       }
     });
