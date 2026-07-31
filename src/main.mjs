@@ -65,7 +65,13 @@ class ProspectMail {
 
   app.on("browser-window-blur", () => {
 		console.log("unfocused..quit");
-        app.exit(0)
+         let count = BrowserWindow.getAllWindows()
+  .filter(b => {
+    return b.isVisible()
+  })
+  .length
+
+	console.log("windows opened",count)
     });
 
     // Quit when all windows are closed.
