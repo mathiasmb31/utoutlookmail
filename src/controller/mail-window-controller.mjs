@@ -352,10 +352,12 @@ fs.writeFile('/home/phablet/.config/prospectmail.mathias/notif', content, err =>
 
     // Emitted when the window is closed.
     this.win.on("closed", () => {
+		console.log("closed window");
       // Dereference the window object, usually you would store windows
       // in an array if your app supports multi windows, this is the time
       // when you should delete the corresponding element.
       this.win = null;
+      global.preventAutoCloseApp = false;
       if (!global.preventAutoCloseApp) {
         app.exit(0); //dont should the app exit is mainWindow is closed?
       }
