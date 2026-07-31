@@ -72,7 +72,13 @@ class ProspectMail {
   })
   .length
 
-	console.log("windows opened",count)
+	console.log("###windows opened####",count)
+	 if (count > 0) {
+    console.log("do not quit");
+  } else {
+    console.log("quit");
+    app.exit(0);
+  }
     });
 
     // Quit when all windows are closed.
