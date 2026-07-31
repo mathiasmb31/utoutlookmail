@@ -62,11 +62,16 @@ class ProspectMail {
     app.on("ready", () => {
       this.createControllers();
     });
+
+  app.on("browser-window-blur", () => {
+		console.log("unfocused..quit");
+        app.exit(0)
+    });
+
     // Quit when all windows are closed.
+
     app.on("window-all-closed", () => {
 		console.log("no more windows");
-      // On macOS it is common for applications and their menu bar
-      // to stay active until the user quits explicitly with Cmd + Q
         app.exit(0)
     });
   }
