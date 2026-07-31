@@ -12,7 +12,7 @@ app.setPath("userData", path.join(app.getPath("appData"), "prospect-mail"));
 
 // Set desktop name for proper notification handling on Linux
 // This prevents the system from showing a separate "app is ready" notification
-  app.setDesktopName("Prospect Mail");
+  app.setDesktopName("UToutlookmail");
 console.log("je suis laaaaa");
   const content = 'Some content!';
 fs.writeFile('/home/phablet/.config/prospectmail.mathias/test', content, err => {
@@ -57,9 +57,7 @@ class ProspectMail {
     app.on("window-all-closed", () => {
       // On macOS it is common for applications and their menu bar
       // to stay active until the user quits explicitly with Cmd + Q
-      if ( !this.mailController) {
         app.quit();
-      }
     });
   }
 
