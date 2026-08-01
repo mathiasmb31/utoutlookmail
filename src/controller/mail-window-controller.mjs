@@ -401,6 +401,25 @@ fs.writeFile('/home/phablet/.config/prospectmail.mathias/notif', content, err =>
 
     // Focus the window (works properly on Wayland with activateIgnoringOtherApps)
     this.win.focus();
+	const originalEmit = EventEmitter.prototype.emit;
+	EventEmitter.prototype.emit = function (eventName, ...args) {
+    let count = BrowserWindow.getAllWindows()
+	.filter(b => {
+    return b.isVisible()
+  })
+  .length
+	console.log("###windows opened####",count)
+	 if (count > 0) {
+    console.log("do not quit");
+  } else {
+    console.log("quit");
+    app.exit(0);
+  } 
+  return originalEmit.call(this, eventName, ...args);
+
+
+};
+
     
   }
 }
