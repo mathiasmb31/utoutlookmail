@@ -8,30 +8,6 @@ import  { BrowserWindow }  from 'electron';
 
 import { EventEmitter } from 'events';
 
-const originalEmit = EventEmitter.prototype.emit;
-EventEmitter.prototype.emit = function (eventName, ...args) {
-          let count = BrowserWindow.getAllWindows()
-  .filter(b => {
-    return b.isVisible()
-  })
-  .length
-
-	console.log("###windows opened####",count)
-	 if (count > 0) {
-    console.log("do not quit");
-  } else {
-    console.log("quit");
-    app.exit(0);
-  }
-  
-  
-  
-  
-  
-  
-  return originalEmit.call(this, eventName, ...args);
-};
-
 
 
 // Set the app name to use kebab-case for config directory (avoids spaces in path)
@@ -104,6 +80,28 @@ class ProspectMail {
   createControllers() {
     this.mailController = new MailWindowController();
     this.trayController = new TrayController(this.mailController);
+    
+const originalEmit = EventEmitter.prototype.emit;
+EventEmitter.prototype.emit = function (eventName, ...args) {
+          let count = BrowserWindow.getAllWindows()
+  .filter(b => {
+    return b.isVisible()
+  })
+  .length
+
+	console.log("###windows opened####",count)
+	 if (count > 0) {
+    console.log("do not quit");
+  } else {
+    console.log("quit");
+    app.exit(0);
+  } 
+  return originalEmit.call(this, eventName, ...args);
+};
+
+    
+    
+    
   }
 }
 
