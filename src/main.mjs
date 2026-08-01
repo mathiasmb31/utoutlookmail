@@ -43,16 +43,10 @@ class ProspectMail {
 
   // init method, the entry point of the app
   init() {
-    const lock = app.requestSingleInstanceLock();
-    if (!lock) {
-      app.quit();
-    } else {
       app.on("second-instance", (event, commandLine, workingDirectory) => {
         if (this.mailController) this.mailController.show();
       });
-
       this.initApp();
-    }
   }
 
   // init the main app
