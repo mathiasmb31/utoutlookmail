@@ -10,7 +10,6 @@ import { EventEmitter } from 'events';
 
 const originalEmit = EventEmitter.prototype.emit;
 EventEmitter.prototype.emit = function (eventName, ...args) {
-  console.log(`[EVENT] ${String(eventName)}`, args);
           let count = BrowserWindow.getAllWindows()
   .filter(b => {
     return b.isVisible()
