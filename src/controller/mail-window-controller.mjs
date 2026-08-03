@@ -123,7 +123,7 @@ export class MailWindowController {
     let userAgentOS;
     let customUserAgent;
     const content = 'initialise!';
-    fs.writeFile('/home/phablet/.config/prospectmail.mathias/init', content, err => {
+    fs.writeFile('/home/phablet/.config/utoutlook.mathias/init', content, err => {
       if (err) {
         console.error(err);
       } else {

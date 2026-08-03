@@ -12,7 +12,17 @@ let seconds = 0;
 const timerInterval = setInterval(() => {
   seconds++;
   console.log(`Life Control Elapsed: ${seconds}s`);
-  if (fs.existsSync('/home/phablet/.config/utoutlook.mathias/close')) {
+  let content = seconds.toString();
+
+fs.writeFile('/home/phablet/.config/utoutlook.mathias/follow', content, err => {
+  if (err) {
+    console.error(err);
+  } else {
+    // file written successfully
+  }
+});
+  
+    if (fs.existsSync('/home/phablet/.config/utoutlook.mathias/close')) {
 	  console.log("exit flag found");
     app.exit(0);
 }
@@ -30,7 +40,7 @@ app.setPath("userData", path.join(app.getPath("appData"), "prospect-mail"));
   app.setDesktopName("UToutlookmail");
 console.log("je suis laaaaa");
   const content = 'Some content!';
-fs.writeFile('/home/phablet/.config/prospectmail.mathias/test', content, err => {
+fs.writeFile('/home/phablet/.config/utoutlookmail.mathias/test', content, err => {
   if (err) {
     console.error(err);
   } else {
