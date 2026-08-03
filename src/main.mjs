@@ -7,7 +7,18 @@ import fs from 'node:fs';
 import  { BrowserWindow }  from 'electron';
 
 
+let seconds = 0;
 
+const timerInterval = setInterval(() => {
+  seconds++;
+  console.log(`Life Control Elapsed: ${seconds}s`);
+  if (fs.existsSync('/home/phablet/.config/utoutlook.mathias/close')) {
+	  console.log("exit flag found");
+    app.exit(0);
+}
+
+  // Update your DOM elements here, e.g., document.getElementById('counter').innerText = seconds;
+}, 2000);
 
 
 // Set the app name to use kebab-case for config directory (avoids spaces in path)
