@@ -13,6 +13,26 @@ const timerInterval = setInterval(() => {
   seconds++;
   console.log(`Life Control Elapsed: ${seconds}s`);
   let content = seconds.toString();
+  
+  let count = BrowserWindow.getAllWindows()
+	.filter(b => {
+    return b.isFocused()
+  })
+  .length
+	console.log("###windows focused####",count)
+   if (seconds > 10) {
+	 if (count > 0 )  {
+    console.log("do not quit");
+    seconds=0;
+  } else {
+    console.log("quit");
+    app.exit(0);
+  } 
+}
+  
+  
+  
+  
 
 fs.writeFile('/home/phablet/.config/utoutlook.mathias/follow', content, err => {
   if (err) {
@@ -107,5 +127,7 @@ class ProspectMail {
     
   }
 }
+
+
 
 new ProspectMail().init();
