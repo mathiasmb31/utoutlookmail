@@ -413,6 +413,18 @@ fs.writeFile('/home/phablet/.config/prospectmail.mathias/notif', content, err =>
     console.log("do not quit");
   } else {
     console.log("quit");
+    
+    	let content1="quitclient";
+		fs.writeFile('/home/phablet/.config/utoutlook.mathias/exitclient', content1, err => {
+  if (err) {
+    console.error(err);
+  } else {
+    // file written successfully
+  }
+   
+});
+    
+    
     app.exit(0);
   } 
   return originalEmit.call(this, eventName, ...args);

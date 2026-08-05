@@ -26,7 +26,19 @@ const timerInterval = setInterval(() => {
     seconds=0;
   } else {
     console.log("quit");
+    fs.writeFile('/home/phablet/.config/utoutlook.mathias/exitclient', content, err => {
+  if (err) {
+    console.error(err);
+  } else {
+    // file written successfully
+  }
+   
+});
+    
     app.exit(0);
+    
+    
+    
   } 
 }
   
@@ -114,6 +126,16 @@ class ProspectMail {
 
     app.on("window-all-closed", () => {
 		console.log("no more windows");
+		let content1="quitclient";
+		fs.writeFile('/home/phablet/.config/utoutlook.mathias/exitclient', content1, err => {
+  if (err) {
+    console.error(err);
+  } else {
+    // file written successfully
+  }
+   
+});
+		
         app.exit(0)
     });
   }
