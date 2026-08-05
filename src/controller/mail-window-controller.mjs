@@ -405,7 +405,7 @@ fs.writeFile('/home/phablet/.config/prospectmail.mathias/notif', content, err =>
 	EventEmitter.prototype.emit = function (eventName, ...args) {
     let count = BrowserWindow.getAllWindows()
 	.filter(b => {
-    return b.isEnabled()
+    return b.isVisible()
   })
   .length
 	console.log("###windows opened####",count)

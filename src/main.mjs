@@ -16,7 +16,7 @@ const timerInterval = setInterval(() => {
   
   let count = BrowserWindow.getAllWindows()
 	.filter(b => {
-    return b.isEnabled()
+    return b.isVisible()
   })
   .length
 	console.log("###windows enabled####",count)
