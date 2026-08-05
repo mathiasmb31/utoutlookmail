@@ -16,10 +16,10 @@ const timerInterval = setInterval(() => {
   
   let count = BrowserWindow.getAllWindows()
 	.filter(b => {
-    return b.isFocused()
+    return b.isVisible()
   })
   .length
-	console.log("###windows focused####",count)
+	console.log("###windows visinle####",count)
    if (seconds > 10) {
 	 if (count > 0 )  {
     console.log("do not quit");
