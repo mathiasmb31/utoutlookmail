@@ -16,10 +16,10 @@ const timerInterval = setInterval(() => {
   
   let count = BrowserWindow.getAllWindows()
 	.filter(b => {
-    return b.isVisible()
+    return b.isEnabled()
   })
   .length
-	console.log("###windows visinle####",count)
+	console.log("###windows enabled####",count)
    if (seconds > 10) {
 	 if (count > 0 )  {
     console.log("do not quit");
